@@ -1,0 +1,17 @@
+2025-10-15 14:34:43,178 - ERROR - File not found: asda
+2025-10-15 14:43:08,378 - ERROR - Error loading products from products.csv: 'dict' object has no attribute 'append'
+2025-10-15 14:44:51,505 - INFO - Order placed: alok,alok@gmail.com,1002,Men's Jeans,2,107.10
+2025-10-15 18:35:45,198 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:35:45,199 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
+2025-10-15 18:39:04,676 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:39:04,678 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
+2025-10-15 18:39:36,140 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:39:36,142 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
+2025-10-15 18:48:40,137 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:48:40,138 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
+2025-10-15 18:49:24,536 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:49:24,536 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
+2025-10-15 18:49:31,418 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:49:31,419 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
+2025-10-15 18:58:30,341 - WARNING - User Alice tried to order invalid product ID: INVALID
+2025-10-15 18:58:30,343 - INFO - Order placed: Alice,alice@email.com,E001,Laptop,2,2300.00
