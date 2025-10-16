@@ -1,11 +1,14 @@
 import models as mx
 import logging
+import threading
 
 logging.basicConfig(
     filename='app.log', 
     level=logging.INFO, 
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
+
+file_lock = threading.Lock()
 
 def create_product(data):
     try:
@@ -25,54 +28,68 @@ def create_product(data):
     return None
 
 def write_product(data):
-    try:
-        with open('final.txt', 'a') as file:
-            file.write(data + '\n')
-    except Exception as e:
-        logging.error(f"Error writing data to file: {e}")
+    with file_lock:
+        try:
+            with open('final.txt', 'a') as file:
+                file.write(data + '\n')
+        except Exception as e:
+            logging.error(f"Error writing data to file: {e}")
+
+def process_product(data, products_list):
+    """Create product, calculate totals, and write to file"""
+    product = create_product(data)
+    if product:
+        try:
+            total = product.calculate_price()
+            totalv = product.calculate_total()
+            para = ",".join([
+                product.id, 
+                product.name, 
+                product.category, 
+                str(product.price), 
+                str(product.stock), 
+                str(total), 
+                str(totalv)
+            ])
+            write_product(para)
+        except Exception as e:
+            logging.error(f"Error calculating totals for product {product.id}: {e}")
+        products_list.append(product)
 
 def load_products(file_path):
-    products=[]
+    """Load products from file using multithreading"""
+    products = []
+    threads = []
+
     try:
         with open(file_path, 'r') as file:
             for line_number, line in enumerate(file, start=1):
                 data = line.strip().split(',')
                 if len(data) == 5:
-                    product = create_product(data)
-                    products.append(product)
-                    if product:
-                        try:
-                            total = product.calculate_price()
-                            totalv = product.calculate_total()
-                            para = ",".join([
-                                product.id, 
-                                product.name, 
-                                product.category, 
-                                str(product.price), 
-                                str(product.stock), 
-                                str(total), 
-                                str(totalv)
-                            ])
-                            write_product(para)
-                        except Exception as e:
-                            logging.error(f"Error calculating totals for product {product.id}: {e}")
+                    t = threading.Thread(target=process_product, args=(data, products))
+                    threads.append(t)
+                    t.start()
                 else:
                     logging.warning(f"Line {line_number} malformed: {line.strip()}")
+
+        for t in threads:
+            t.join()
+
     except FileNotFoundError:
         logging.error(f"File not found: {file_path}")
     except Exception as e:
         logging.error(f"Error loading products from {file_path}: {e}")
+
     return products
 
-
-
 def write_order(order_data):
-    try:
-        with open('order_history.txt', 'a') as file:
-            file.write(order_data + '\n')
-    except Exception as e:
-        logging.error(f"Error writing order to file: {e}")
-
+    """Thread-safe order write"""
+    with file_lock:
+        try:
+            with open('order_history.txt', 'a') as file:
+                file.write(order_data + '\n')
+        except Exception as e:
+            logging.error(f"Error writing order to file: {e}")
 
 def main():
     filename = input("Enter product file name: ")
@@ -116,7 +133,6 @@ def main():
     else:
         print("Product ID not found.")
         logging.warning(f"User {user.name} tried to order invalid product ID: {order_id}")
-
 
 if __name__ == "__main__":
     main()
