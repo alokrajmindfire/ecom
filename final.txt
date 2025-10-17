@@ -16,3 +16,9 @@
 1004,Gaming Headset,Electronics,89.0,20,1780.0,2047.0
 1005,Summer Dress,Clothing,35.0,45,1575.0,1417.5
 1006,Loaf of Bread,Food,2.25,90,202.5,202.5
+1001,Wireless Mouse,Electronics,25.99,50,1299.5,1494.425
+1002,Men's Jeans,Clothing,59.5,35,2082.5,1874.25
+1003,Milk Gallon,Food,3.49,70,244.3,244.3
+1004,Gaming Headset,Electronics,89.0,20,1780.0,2047.0
+1005,Summer Dress,Clothing,35.0,45,1575.0,1417.5
+1006,Loaf of Bread,Food,2.25,90,202.5,202.5
