@@ -1,6 +1,6 @@
 class Product:
-    def __init__(self, id, name, category, price, stock):
-        self.id = id
+    def __init__(self, pro_id, name, category, price, stock):
+        self.pro_id = pro_id
         self.name = name
         self.category = category
         self.price = float(price)
